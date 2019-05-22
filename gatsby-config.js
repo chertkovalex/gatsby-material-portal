@@ -14,7 +14,15 @@ module.exports = {
     // If you want to use styled components you should add the plugin here.
     // 'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-netlify-cms'
+    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/blog`,
+        name: 'markdown-pages',
+      },
+    },
+    `gatsby-transformer-remark`,
   ],
   siteMetadata: {
     title: 'Sapiens Digital Portal',
