@@ -71,18 +71,13 @@ export default class Policies extends React.Component {
   state = {
     loading: false,
     error: false,
-    pupper: {
-      img: "",
-      breed: "",
-    },
-  }
-
+  };
 
   componentDidMount() {
-    //this.fetchRicksPupper()
+    // this.fetchPolicies()
   }
 
-  render(){
+  render() {
     return (
       <React.Fragment>
         {policies.map((policy, key) => (
@@ -91,7 +86,4 @@ export default class Policies extends React.Component {
       </React.Fragment>
     );
   }
-
-
-
 }
