@@ -4,8 +4,8 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-const path = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
+const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
 
 // Implement the Gatsby API “onCreatePage”. This is
 // called after every page is created.
@@ -29,10 +29,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] }, 
-        limit: 1000
-      ) {
+      allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000) {
         edges {
           node {
             id
@@ -48,12 +45,12 @@ exports.createPages = ({ actions, graphql }) => {
     }
   `).then(result => {
     if (result.errors) {
-      result.errors.forEach(e => console.error(e.toString()))
+      result.errors.forEach(e => console.error(e.toString()));
       return Promise.reject(result.errors);
     }
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      const {id} = node
+    return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+      const { id } = node;
 
       createPage({
         path: node.fields.slug,
@@ -68,14 +65,14 @@ exports.createPages = ({ actions, graphql }) => {
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+  const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
+    const value = createFilePath({ node, getNode });
     createNodeField({
       name: `slug`,
       node,
       value,
-    })
+    });
   }
-}
+};
