@@ -4,6 +4,9 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+const path = require('path')
+const { createFilePath } = require('gatsby-source-filesystem')
+
 // Implement the Gatsby API “onCreatePage”. This is
 // called after every page is created.
 exports.onCreatePage = async ({ page, actions }) => {
@@ -19,8 +22,6 @@ exports.onCreatePage = async ({ page, actions }) => {
   }
 };
 
-const path = require('path');
-
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
@@ -34,6 +35,10 @@ exports.createPages = ({ actions, graphql }) => {
       ) {
         edges {
           node {
+            id
+            fields {
+              slug
+            }
             frontmatter {
               path
             }
@@ -43,15 +48,34 @@ exports.createPages = ({ actions, graphql }) => {
     }
   `).then(result => {
     if (result.errors) {
+      result.errors.forEach(e => console.error(e.toString()))
       return Promise.reject(result.errors);
     }
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+      const {id} = node
+
       createPage({
-        path: node.frontmatter.path,
+        path: node.fields.slug,
         component: blogPostTemplate,
-        context: {}, // additional data can be passed via context
+        // additional data can be passed via context
+        context: {
+          id,
+        },
       });
     });
   });
 };
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({ node, getNode })
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
+    })
+  }
+}
