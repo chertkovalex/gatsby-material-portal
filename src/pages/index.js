@@ -1,22 +1,31 @@
 import React from 'react';
+
 import { Link, graphql } from 'gatsby';
 
 import { Grid } from '@material-ui/core';
 import Layout from '../components/Layout';
 import NewsList from '../components/NewsList';
+import Dashboard from '../components/Dashboard';
 
 import { getCurrentUser, isLoggedIn } from '../services/auth';
 
 // eslint-disable-next-line react/prop-types
 export default function App({ data }) {
+  const isAuth = isLoggedIn();
+
+  const dashboardProps = {
+    isAuth,
+  };
+
   return (
     <Layout>
       <Grid container>
         <Grid item xs={12} sm={8} lg={9}>
           <h1>{data.site.siteMetadata.title}</h1>
-          <h1>Hello{isLoggedIn() && `, ${getCurrentUser().name}`}!</h1>
+          <h1>Hello{isAuth && `, ${getCurrentUser().name}`}!</h1>
+          <Dashboard {...dashboardProps} />
           <p>
-            {isLoggedIn() ? (
+            {isAuth ? (
               <>
                 You are logged in, so check your <Link to="/app/profile">profile</Link>
               </>

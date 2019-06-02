@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   if (isLoggedIn()) {
-    navigate(`/app/profile`);
+    navigate(`/app/user-details`);
   }
 
   return (
@@ -35,7 +35,7 @@ export default function Login() {
         method="post"
         onSubmit={event => {
           handleSubmit(event);
-          navigate(`/app/profile`);
+          navigate(`/`);
         }}
       >
         <TextField
