@@ -3,15 +3,27 @@ backend:
   repo: chertkovalex/gatsby-material-portal
   branch: use-netlify-cms
 
-media_folder: static/assets
-public_folder: assets
+media_folder: 'static/images/uploads'
+public_folder: '/images/uploads'
 
 collections:
   - name: blog
     label: Blog
     folder: blog
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}' # Filename template, e.g., YYYY-MM-DD-title.md
+    fields:
+      - { name: date, label: Date, widget: date }
+      - { label: Image, name: image, widget: image, default: 'src/img/sapiens-logo.png' }
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: promo
+    label: Promo
+    description: Marketing promos posted by the Sales Team
+    folder: promo
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{hour}}-{{minute}}-{{second}}-{{slug}}' # Filename template, e.g., YYYY-MM-DD-title.md
     fields:
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title, widget: string }

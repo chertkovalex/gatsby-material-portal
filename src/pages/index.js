@@ -1,11 +1,10 @@
 import React from 'react';
-
 import { Link, graphql } from 'gatsby';
-
 import { Grid } from '@material-ui/core';
+
+import Dashboard from '../components/Dashboard';
 import Layout from '../components/Layout';
 import NewsList from '../components/NewsList';
-import Dashboard from '../components/Dashboard';
 
 import { getCurrentUser, isLoggedIn } from '../services/auth';
 
