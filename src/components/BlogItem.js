@@ -23,21 +23,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const BlogItem = props => {
-  const { data } = props;
+  const { data, imgHeight } = props;
   const { excerpt: description, fields, frontmatter } = data;
-  const { date, title } = frontmatter;
+  const { date, title, image } = frontmatter;
   const { slug } = fields;
   const classes = useStyles();
 
   return (
     <Paper className={classes.paper}>
       <Card>
-        <CardActionArea>
+        <CardActionArea onClick={() => navigate(slug)}>
           <CardMedia
             component="img"
             alt="Contemplative Reptile"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
+            height={imgHeight || 140}
+            image={!!image ? `${!!image.childImageSharp ? image.childImageSharp.fluid.src : image}` : ''}
             title="Contemplative Reptile"
           />
           <CardContent>

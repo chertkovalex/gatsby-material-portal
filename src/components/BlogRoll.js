@@ -31,7 +31,7 @@ const BlogRoll = props => {
 
           return (
             <Grid item {...gridProps} key={post.id}>
-              <BlogItem data={post} />
+              <BlogItem data={post} imgHeight={i === 0 ? 250 : 140} />
             </Grid>
           );
         })}
@@ -63,6 +63,13 @@ export default () => (
               frontmatter {
                 title
                 date(formatString: "MMMM DD, YYYY")
+                image {
+                  childImageSharp {
+                    fluid(maxWidth: 1200, quality: 92) {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
               }
             }
           }

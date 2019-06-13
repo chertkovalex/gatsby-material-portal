@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import PostLink from '../components/post-link';
 
 const IndexPage = ({
+  // eslint-disable-next-line react/prop-types
   data: {
     allMarkdownRemark: { edges },
   },
@@ -28,7 +29,6 @@ export const pageQuery = graphql`
           }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
-            path
             title
           }
         }

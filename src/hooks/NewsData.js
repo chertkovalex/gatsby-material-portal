@@ -14,7 +14,6 @@ const useNewsData = () => {
               }
               frontmatter {
                 date(formatString: "MMMM DD, YYYY")
-                path
                 title
               }
             }

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import { graphql, navigate } from 'gatsby';
 
@@ -14,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -24,10 +26,10 @@ export default function Template({
   // eslint-disable-next-line react/prop-types
   data, // this prop will be injected by the GraphQL query below.
 }) {
-  console.log('blog data', data);
 
   const { markdownRemark } = data; // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark;
+  const { date, image, title } = frontmatter;
 
   const classes = useStyles();
 
@@ -41,22 +43,18 @@ export default function Template({
                 <CardMedia
                   component="img"
                   alt="Contemplative Reptile"
-                  height="140"
-                  image="/static/images/cards/contemplative-reptile.jpg"
+                  height="600"
+                  image={`${image.childImageSharp ? image.childImageSharp.fluid.src : image}`}
                   title="Contemplative Reptile"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {frontmatter.title}
+                    {title}
                   </Typography>
                   <Typography variant="body1" color="textSecondary" component="p">
-                    {frontmatter.date}
+                    {date}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {frontmatter.description}
-                  </Typography>
-
-                  <Typography variant="caption" color="textSecondary" component="div">
+                  <Typography variant="body2" color="textSecondary" component="div">
                     <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: html }} />
                   </Typography>
                 </CardContent>
@@ -84,8 +82,14 @@ export const pageQuery = graphql`
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
-        path
         title
+        image {
+          childImageSharp {
+            fluid(maxHeight: 1500, quality: 100) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }
