@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: chertkovalex/gatsby-material-portal
+  repo: chertkovalex/cms-sources
   branch: master
 
 media_folder: static/img
