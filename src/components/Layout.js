@@ -2,22 +2,21 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import clsx from 'clsx';
 
+import { makeStyles } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
-import { makeStyles } from '@material-ui/core/styles';
 
-//import './all.sass';
+// import './all.sass';
 import useSiteMetadata from '../hooks/SiteMetadata';
 
 import { mainListItems, secondaryListItems } from './listItems';
-import Footer from '../components/Footer';
-import TopBar from '../components/TopBar';
+import Footer from './Footer';
+import TopBar from './TopBar';
 
 const drawerWidth = 240;
 
@@ -100,6 +99,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
   const { title, description } = useSiteMetadata();
 
@@ -154,7 +154,7 @@ const Layout = ({ children }) => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-            {children}
+          {children}
         </Container>
         <Footer />
       </main>

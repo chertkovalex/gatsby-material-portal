@@ -4,6 +4,10 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
+const { fmImagesToRelative } = require('gatsby-remark-relative-images');
+
 // Implement the Gatsby API “onCreatePage”. This is
 // called after every page is created.
 exports.onCreatePage = async ({ page, actions }) => {
@@ -16,5 +20,63 @@ exports.onCreatePage = async ({ page, actions }) => {
 
     // Update the page.
     createPage(page);
+  }
+};
+
+exports.createPages = ({ actions, graphql }) => {
+  const { createPage } = actions;
+
+  const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
+
+  return graphql(`
+    {
+      allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000) {
+        edges {
+          node {
+            id
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+              date(formatString: "MMMM DD, YYYY")
+            }
+          }
+        }
+      }
+    }
+  `).then(result => {
+    if (result.errors) {
+      // eslint-disable-next-line no-console
+      result.errors.forEach(e => console.error(e.toString()));
+      return Promise.reject(result.errors);
+    }
+
+    return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+      const { id } = node;
+
+      createPage({
+        path: node.fields.slug,
+        component: blogPostTemplate,
+        // additional data can be passed via context
+        context: {
+          id,
+        },
+      });
+    });
+  });
+};
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
+  fmImagesToRelative(node); // convert image paths for gatsby images
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({ node, getNode });
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
+    });
   }
 };

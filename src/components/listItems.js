@@ -1,14 +1,16 @@
 import React from 'react';
+import { navigate } from 'gatsby';
+
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import LayersIcon from '@material-ui/icons/Layers';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 export const mainListItems = (
   <div>
@@ -48,7 +50,7 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
+    <ListItem button onClick={() => navigate(`/blog`)}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>

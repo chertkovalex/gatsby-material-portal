@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from 'gatsby';
 import clsx from 'clsx';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -13,9 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { navigate } from 'gatsby';
 
 import { getCurrentUser, isLoggedIn, logout } from '../services/auth';
+import logo from '../img/sapiens-logo.png';
 
 export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
   const content = { message: '', login: true };
@@ -52,7 +53,15 @@ export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
         >
           <MenuIcon />
         </IconButton>
-
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="Sapiens Digital Portal Home"
+          onClick={() => navigate('/')}
+          className={clsx(classes.menuButton)}
+        >
+          <img src={logo} alt="Sapiens Logo" height="20" />
+        </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           {content.message}
         </Typography>
@@ -88,15 +97,9 @@ export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
               open={open}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={()=>handleMenuNavigate(`/app/profile`)}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={()=>handleMenuNavigate(`/app/user-details`)}>
-                User details
-              </MenuItem>
-              <MenuItem onClick={()=>handleMenuNavigate(`/app/policies`)}>
-                Policies
-              </MenuItem>
+              <MenuItem onClick={() => handleMenuNavigate(`/app/profile`)}>Profile</MenuItem>
+              <MenuItem onClick={() => handleMenuNavigate(`/app/user-details`)}>User details</MenuItem>
+              <MenuItem onClick={() => handleMenuNavigate(`/app/policies`)}>Policies</MenuItem>
               <MenuItem
                 onClick={event => {
                   event.preventDefault();
@@ -119,7 +122,7 @@ export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
 }
 
 TopBar.propTypes = {
-  classes: PropTypes.object, 
-  drawerOpen: PropTypes.bool, 
-  handleDrawerOpen: PropTypes.func
-}
+  classes: PropTypes.object,
+  drawerOpen: PropTypes.bool,
+  handleDrawerOpen: PropTypes.func,
+};
