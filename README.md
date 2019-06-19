@@ -176,6 +176,16 @@ In order to add a new language for pages, they should be placed inside of the co
 
 [Testing Gatsby components and Graphql](https://github.com/gatsbyjs/gatsby/blob/master/docs/docs/testing-components-with-graphql.md)
 
+## Working with images
+Optimizing image size is very important since lots of images can dramatically increase the size of your site.
+Please refer to the following best practices when you want to use images:
+
+https://www.gatsbyjs.org/docs/working-with-images/
+https://www.gatsbyjs.org/packages/gatsby-image/
+https://www.gatsbyjs.org/packages/gatsby-plugin-sharp/
+
+
+
 ---
 
 ## **TODO**
