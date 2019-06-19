@@ -28,7 +28,6 @@ export default function Dashboard({ isAuth }) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <>
       <Grid container spacing={1}>
         {/* User Details */}
         {isAuth && (
@@ -53,7 +52,6 @@ export default function Dashboard({ isAuth }) {
           </Paper>
         </Grid>
       </Grid>
-    </>
   );
 }
 

@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { Grid } from '@material-ui/core';
 import { Link, graphql } from 'gatsby';
 
-import { getCurrentUser, isLoggedIn } from '../services/auth';
-import Dashboard from '../components/Dashboard';
-import Layout from '../components/Layout';
-import NewsList from '../components/NewsList';
+import { getCurrentUser, isLoggedIn } from '../../services/auth';
+import Dashboard from '../../components/Dashboard';
+import Layout from '../../components/Layout';
+import NewsList from '../../components/NewsList';
 
 // eslint-disable-next-line react/prop-types
 export default function App({ data }) {
@@ -29,11 +29,11 @@ export default function App({ data }) {
           <p>
             {isAuth ? (
               <>
-                You are logged in, so check your <Link to="/app/profile">profile</Link>
+                You are logged in, so check your <Link to="/it/app/profile">profile</Link>
               </>
             ) : (
               <>
-                You should <Link to="/app/login">log in</Link> to see restricted content
+                You should <Link to="/it/app/login">log in</Link> to see restricted content
               </>
             )}
           </p>

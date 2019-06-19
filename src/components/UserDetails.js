@@ -1,12 +1,13 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import CardContent from '@material-ui/core/CardContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-import Title from './Title';
 import fetchUserDetails from '../services/api';
+import Title from './Title';
 
 const styles = {
   textField: {
@@ -63,7 +64,6 @@ export default class UserDetails extends React.Component {
         if (typeof data[key] === 'object') {
           userDataItem.value = data[key].description;
         }
-
         mappedDataObject.push(userDataItem);
       }
 
@@ -77,7 +77,9 @@ export default class UserDetails extends React.Component {
 
     return (
       <React.Fragment>
-        <Title>Personal information</Title>
+        <Title>
+          <FormattedMessage id="Personal information" />
+        </Title>
         <Divider variant="middle" />
 
         {isLoading && (

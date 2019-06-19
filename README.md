@@ -4,6 +4,16 @@
 
 Sample application with basic functionality as an example of integrating [Gatsby](https://www.gatsbyjs.org/) + [MATERIAL-UI](https://material-ui.com/) + [Netlify CMS](https://www.netlifycms.org/) with other services.
 
+## Currently supported features
+
+- Static site generated with [Gatsby](https://www.gatsbyjs.org/)
+- UI framework used: [MATERIAL-UI](https://material-ui.com/)
+- Static content managed with [Netlify CMS](https://www.netlifycms.org/) sourced from github
+- Query siteMetadata and NetlifyCMS with [GraphQL](https://graphql.org/)
+- Authentication service ready to integrate with any auth system
+- Restricted pages access for authenticated users
+- Multilanguage support with [react-intl](https://github.com/formatjs/react-intl)
+
 ## How to use
 
 First, install Gatsby CLI
@@ -97,3 +107,78 @@ https://www.gatsbyjs.com/gatsby-days-themes-chris/
 https://www.gatsbyjs.org/docs/authentication-tutorial/
 
 https://www.gatsbyjs.org/docs/building-apps-with-gatsby/#client-only-routes--user-authentication
+
+## Multi-language solution
+
+---
+
+### Inspired by:
+
+- [react-intl](https://github.com/formatjs/react-intl)
+- [gatsby-react-intl-demo](https://github.com/bmihelac/gatsby-react-intl-demo) - Basic configuration and concepts.
+
+Another [starter](https://www.gatsbyjs.org/starters/tomekskuta/gatsby-starter-intl/) which makes static pages for every locale and detect your browsers lang. i18n with react-intl (not implemented in this project, but worth seeing).
+
+Another plugin [gatsby-plugin-i18n](https://github.com/angeloocana/gatsby-plugin-i18n), which solves multi language routes for Gatsby.
+Has not been implemented, because it demands to make files with **.langKey.js** and the url will be /**langKey**/path/fileName.
+
+### Implementation
+
+---
+
+### Infrastructure
+
+- `src/utils.js` - Helper functions (taken from `gatsby-react-intl-demo`). _TODO:_ consider to combine with `src/locale`
+- `gatsby-browser.js` - Component wrapper with locale data (taken from `gatsby-react-intl-demo` with several fixes). 
+- `gatsby-node.js` - Added support in order to catch also pages behind the **locale prefix** (for example: **`/it`**`/app/profile` etc).
+- `gatsby-ssr.js` - taken from `gatsby-react-intl-demo` (with eslint fixes). 
+
+The above files are configured and should not require any changes for additional languages.
+
+---
+
+Locale configuration could be found in the `/src/locale` folder.
+
+- `en.json, it.json` - json files with translation resources. For additional languages - add corresponding files.
+- `index.js:`
+
+```js
+const languages = ['en', 'it'];
+export const languageNames = ['English', 'Italiano'];
+export const getLocalePrefix = locale => (locale === languages[0] ? '' : `/${locale}`);
+export default languages;
+```
+
+- `languages` - list of supported locales
+- `languageNames` - list of supported language names
+- `getLocalePrefix` - helper function to get locale prefix (used in `navigate` method, `path` property and `<Link to="" />` property)
+
+Default language is **English** (locale: `en`).
+
+Default Page files are stored at `/src/pages` directory.
+
+In order to add a new language for pages, they should be placed inside of the corresponding folder with locale name. For example, **Italian** pages are placed at `/src/pages/it`, **French** - at `/src/pages/fr` and so on.
+
+### Components:
+
+- `LanguageSelector` - used for switch between languages
+
+### TODO:
+
+- Use [gatsby-plugin-intl](https://github.com/wiziple/gatsby-plugin-intl) in order to **support multi-language url routes in a single page component**
+- See more feature available for multilanguage support for CMS at [gatsby-starter-i18n-bulma](https://github.com/kalwalt/gatsby-starter-i18n-bulma)
+
+## Tests
+
+[Official Gatsby documentation](https://www.gatsbyjs.org/docs/unit-testing/)
+
+[Testing with React-Intl](https://github.com/formatjs/react-intl/blob/master/docs/Testing-with-React-Intl.md)
+
+[Testing Gatsby components and Graphql](https://github.com/gatsbyjs/gatsby/blob/master/docs/docs/testing-components-with-graphql.md)
+
+---
+
+## **TODO**
+
+- Fix 404 implementation
+- Tests

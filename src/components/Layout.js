@@ -14,7 +14,7 @@ import List from '@material-ui/core/List';
 // import './all.sass';
 import useSiteMetadata from '../hooks/SiteMetadata';
 
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, SecondaryListItems } from './listItems';
 import Footer from './Footer';
 import TopBar from './TopBar';
 
@@ -149,7 +149,9 @@ const Layout = ({ children }) => {
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        <List>
+          <SecondaryListItems />
+        </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

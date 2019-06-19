@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { navigate } from 'gatsby';
 import clsx from 'clsx';
 
@@ -16,16 +17,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import { getCurrentUser, isLoggedIn, logout } from '../services/auth';
+import { getLocalePrefix } from '../locale';
+import LanguageSelector from './LanguageSelector';
 import logo from '../img/sapiens-logo.png';
 
-export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
-  const content = { message: '', login: true };
-  if (isLoggedIn()) {
-    content.message = `Hello, ${getCurrentUser().name}!`;
-  } else {
-    content.message = 'You are not logged in';
-  }
-
+const TopBar = ({ intl, classes, drawerOpen, handleDrawerOpen }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -40,6 +36,8 @@ export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
   };
 
   const open = Boolean(anchorEl) && isLoggedIn();
+
+  const localePrefix = getLocalePrefix(intl.locale);
 
   return (
     <AppBar position="absolute" className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}>
@@ -57,14 +55,21 @@ export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
           edge="start"
           color="inherit"
           aria-label="Sapiens Digital Portal Home"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(`${localePrefix}/`)}
           className={clsx(classes.menuButton)}
         >
           <img src={logo} alt="Sapiens Logo" height="20" />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          {content.message}
+          {isLoggedIn() ? (
+            <>
+              <FormattedMessage id="hello" />, {getCurrentUser().name}!
+            </>
+          ) : (
+            <FormattedMessage id="You are not logged in" />
+          )}
         </Typography>
+        <LanguageSelector />
 
         {isLoggedIn() && (
           <div>
@@ -97,32 +102,43 @@ export default function TopBar({ classes, drawerOpen, handleDrawerOpen }) {
               open={open}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={() => handleMenuNavigate(`/app/profile`)}>Profile</MenuItem>
-              <MenuItem onClick={() => handleMenuNavigate(`/app/user-details`)}>User details</MenuItem>
-              <MenuItem onClick={() => handleMenuNavigate(`/app/policies`)}>Policies</MenuItem>
+              <MenuItem onClick={() => handleMenuNavigate(`${localePrefix}/app/profile`)}>
+                <FormattedMessage id="profile" />
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuNavigate(`${localePrefix}/app/user-details`)}>
+                <FormattedMessage id="user.details" />
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuNavigate(`${localePrefix}/app/policies`)}>
+                <FormattedMessage id="policies" />
+              </MenuItem>
               <MenuItem
                 onClick={event => {
                   event.preventDefault();
-                  logout(() => navigate(`/`));
+                  logout(() => navigate(`${localePrefix}/`));
                 }}
               >
-                Logout
+                <FormattedMessage id="logout" />
               </MenuItem>
             </Menu>
           </div>
         )}
         {!isLoggedIn() && (
-          <Button color="inherit" onClick={() => navigate(`/app/login`)}>
-            Login
+          <Button color="inherit" onClick={() => navigate(`${localePrefix}/app/login`)}>
+            <FormattedMessage id="login" />
           </Button>
         )}
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 TopBar.propTypes = {
   classes: PropTypes.object,
   drawerOpen: PropTypes.bool,
   handleDrawerOpen: PropTypes.func,
+  intl: PropTypes.shape({
+    locale: PropTypes.string,
+  }),
 };
+
+export default injectIntl(TopBar);

@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { navigate } from 'gatsby';
+import { injectIntl } from 'react-intl';
 
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import BarChartIcon from '@material-ui/icons/BarChart';
@@ -47,26 +50,36 @@ export const mainListItems = (
   </div>
 );
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button onClick={() => navigate(`/blog`)}>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
-);
+const secondaryList = ({ intl }) => {
+  return (
+    <div>
+      <ListSubheader inset>Saved reports</ListSubheader>
+      <ListItem button onClick={() => navigate(`${intl.locale === 'en' ? '' : intl.locale}/blog`)}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Current month" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Last quarter" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Year-end sale" />
+      </ListItem>
+    </div>
+  );
+};
+
+secondaryList.propTypes = {
+  intl: PropTypes.shape({
+    locale: PropTypes.string,
+  }),
+};
+
+export const SecondaryListItems = injectIntl(secondaryList);

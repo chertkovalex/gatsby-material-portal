@@ -1,16 +1,17 @@
 import React from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { getCurrentUser } from '../services/auth';
 
 const Profile = () => (
   <>
-    <h1>Your profile</h1>
+    <h1><FormattedMessage id="Your profile"/></h1>
     <ul>
       <ul>
-        <li>Name: {getCurrentUser().name}</li>
-        <li>E-mail: {getCurrentUser().email}</li>
+        <li><FormattedMessage id="name"/>: {getCurrentUser().name}</li>
+        <li><FormattedMessage id="e-mail"/>: {getCurrentUser().email}</li>
       </ul>
     </ul>
   </>
 );
 
-export default Profile;
+export default injectIntl(Profile);
