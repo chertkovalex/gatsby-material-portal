@@ -15,8 +15,16 @@ exports.onCreatePage = async ({ page, actions }) => {
 
   // page.matchPath is a special key that's used for matching pages
   // only on the client.
-  if (page.path.match(/^\/app/)) {
-    page.matchPath = `/app/*`;
+  // Added support for '\/[a-z]{2}' in order to catch also pages behind the locale prefix
+  // For example: /it/app/profile etc
+  if (page.path.match(/^\/[a-z]{2}\/app|^\/app/)) {
+    if (page.path.match(/^\/app/)) {
+      page.matchPath = `/app/*`;
+    }
+    if (page.path.match(/^\/[a-z]{2}\/app/)) {
+      const localePrefix = page.path.slice(0, 3);
+      page.matchPath = `${localePrefix}/app/*`;
+    }
 
     // Update the page.
     createPage(page);

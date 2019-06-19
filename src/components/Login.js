@@ -1,21 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import Button from '@material-ui/core/Button';
+import { Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { handleLogin, isLoggedIn } from '../services/auth';
+import { getLocalePrefix } from '../locale';
 
 const useStyles = makeStyles(theme => ({
+  loginContainer: {
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
   button: {
     margin: theme.spacing(1),
   },
 }));
 
-export default function Login() {
+const Login = ({ intl }) => {
   const [username, setUsername] = React.useState('digital');
   const [password, setPassword] = React.useState('digital');
+  const localePrefix = getLocalePrefix(intl.locale);
 
   const classes = useStyles();
 
@@ -25,22 +35,25 @@ export default function Login() {
   };
 
   if (isLoggedIn()) {
-    navigate(`/app/user-details`);
+    navigate(`${localePrefix}/app/user-details`);
   }
 
   return (
-    <>
-      <h1>Log in</h1>
+    <Grid container spacing={1}>
+      <Grid item className={classes.loginContainer}>
+      <h1>
+        <FormattedMessage id="Log in" />
+      </h1>
       <form
         method="post"
         onSubmit={event => {
           handleSubmit(event);
-          navigate(`/`);
+          navigate(`${localePrefix}/`);
         }}
       >
         <TextField
           defaultValue="digital"
-          label="Username"
+          label={intl.formatMessage({ id: 'Username' })}
           margin="normal"
           name="username"
           onChange={event => setUsername(event.target.value)}
@@ -50,7 +63,7 @@ export default function Login() {
         <TextField
           autoComplete="current-password"
           defaultValue="digital"
-          label="Password"
+          label={intl.formatMessage({ id: 'Password' })}
           margin="normal"
           name="password"
           onChange={event => setPassword(event.target.value)}
@@ -59,9 +72,18 @@ export default function Login() {
         />
         <br />
         <Button variant="contained" color="primary" type="submit" className={classes.button}>
-          Log In
+          <FormattedMessage id="Log in" />
         </Button>
       </form>
-    </>
+      </Grid>
+    </Grid>
   );
-}
+};
+
+Login.propTypes = {
+  intl: PropTypes.shape({
+    locale: PropTypes.string,
+  }),
+};
+
+export default injectIntl(Login);
