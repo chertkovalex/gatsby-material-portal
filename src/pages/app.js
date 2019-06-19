@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import Layout from '../components/Layout';
-import Profile from '../components/Profile';
+import Profile from '../components/kartofel';
 import PrivateRoute from '../components/PrivateRoute';
 import UserDetails from '../components/UserDetails';
 import Policies from '../components/Policies';
