@@ -192,3 +192,4 @@ https://www.gatsbyjs.org/packages/gatsby-plugin-sharp/
 
 - Fix 404 implementation
 - Tests
+- Implement Search (Algolia)
