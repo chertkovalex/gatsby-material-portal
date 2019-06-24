@@ -36,8 +36,8 @@ const TopBar = ({ intl, classes, drawerOpen, handleDrawerOpen }) => {
   };
 
   const open = Boolean(anchorEl) && isLoggedIn();
-
   const localePrefix = getLocalePrefix(intl.locale);
+  const { firstName, lastName, mainRole } = getCurrentUser();
 
   return (
     <AppBar position="absolute" className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}>
@@ -63,7 +63,7 @@ const TopBar = ({ intl, classes, drawerOpen, handleDrawerOpen }) => {
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           {isLoggedIn() ? (
             <>
-              <FormattedMessage id="hello" />, {getCurrentUser().name}!
+              <FormattedMessage id="hello" />, {firstName} {lastName}! - {mainRole}
             </>
           ) : (
             <FormattedMessage id="You are not logged in" />

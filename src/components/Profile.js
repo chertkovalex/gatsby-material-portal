@@ -1,17 +1,34 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 import { getCurrentUser } from '../services/auth';
 
-const Profile = () => (
-  <>
-    <h1><FormattedMessage id="Your profile"/></h1>
-    <ul>
-      <ul>
-        <li><FormattedMessage id="name"/>: {getCurrentUser().name}</li>
-        <li><FormattedMessage id="e-mail"/>: {getCurrentUser().email}</li>
-      </ul>
-    </ul>
-  </>
-);
+const Profile = () => {
+  const { firstName, lastName, email, mainRole } = getCurrentUser();
 
-export default injectIntl(Profile);
+  return (
+    <>
+      <h1>
+        <FormattedMessage id="Your profile" />
+      </h1>
+
+      <ListItem>
+        <ListItemText secondary={<FormattedMessage id="First Name" />} primary={firstName} />
+      </ListItem>
+      <ListItem>
+        <ListItemText secondary={<FormattedMessage id="Last Name" />} primary={lastName} />
+      </ListItem>
+      <ListItem>
+        <ListItemText secondary={<FormattedMessage id="Main Role" />} primary={mainRole} />
+      </ListItem>
+      <ListItem>
+        <ListItemText secondary={<FormattedMessage id="e-mail" />} primary={email} />
+      </ListItem>
+    </>
+  );
+};
+
+export default Profile;

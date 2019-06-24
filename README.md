@@ -12,6 +12,7 @@ Sample application with basic functionality as an example of integrating [Gatsby
 - Query siteMetadata and NetlifyCMS with [GraphQL](https://graphql.org/)
 - Authentication service ready to integrate with any auth system
 - Restricted pages access for authenticated users
+- Restricted pages for admins
 - Multilanguage support with [react-intl](https://github.com/formatjs/react-intl)
 
 ## How to use
@@ -102,15 +103,27 @@ https://www.gatsbyjs.org/docs/seo/
 https://www.gatsbyjs.org/blog/2018-11-11-introducing-gatsby-themes/
 https://www.gatsbyjs.com/gatsby-days-themes-chris/
 
-### Authentication
+## Authentication
 
-https://www.gatsbyjs.org/docs/authentication-tutorial/
+### Inspired by:
 
-https://www.gatsbyjs.org/docs/building-apps-with-gatsby/#client-only-routes--user-authentication
+- [Gatsby Authentication Tutorial](https://www.gatsbyjs.org/docs/authentication-tutorial/), 
+- [Additional link](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/#client-only-routes--user-authentication)
 
-## Multi-language solution
+
+### Usage
+
+- `PrivateRoute` component should be used for authenticated content.
+- `AdminRoute` component should be used for admin content access.
+
+For temporary demo, users data is stored in `src/data/users.json`. User has a `mainRole` property and a list of `roles`. Users with `admin` role should have access to all pages. Users with `agent` role will have an access to private pages. Non-authenticated users will have an access only for public pages, not routed by `PrivateRoute` or `AdminRoute`. 
+Non-authenticated users trying to access restricted pages will be forwarded to `Login` page. Authenticated users trying to access `admin` pages will be redirected to `profile` page to see their current role.
+
+**TODO:** use [gatsby-plugin-create-client-paths](https://www.gatsbyjs.org/packages/gatsby-plugin-create-client-paths/) (aware of links with **locale** prefix).
 
 ---
+
+## Multi-language solution
 
 ### Inspired by:
 
@@ -122,9 +135,9 @@ Another [starter](https://www.gatsbyjs.org/starters/tomekskuta/gatsby-starter-in
 Another plugin [gatsby-plugin-i18n](https://github.com/angeloocana/gatsby-plugin-i18n), which solves multi language routes for Gatsby.
 Has not been implemented, because it demands to make files with **.langKey.js** and the url will be /**langKey**/path/fileName.
 
-### Implementation
 
----
+
+### Implementation
 
 ### Infrastructure
 
@@ -183,6 +196,11 @@ Please refer to the following best practices when you want to use images:
 https://www.gatsbyjs.org/docs/working-with-images/
 https://www.gatsbyjs.org/packages/gatsby-image/
 https://www.gatsbyjs.org/packages/gatsby-plugin-sharp/
+
+## Working with Markdown
+
+- [Adding Markdown Pages](https://www.gatsbyjs.org/docs/adding-markdown-pages/)
+- [Adding a List of Markdown Blog Posts](https://www.gatsbyjs.org/docs/adding-a-list-of-markdown-blog-posts/)
 
 
 
