@@ -1,20 +1,22 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Grid } from '@material-ui/core';
 import { Link, graphql } from 'gatsby';
 
 import { getCurrentUser, isLoggedIn } from '../services/auth';
+import { getLocalePrefix } from '../locale';
 import Dashboard from '../components/Dashboard';
 import Layout from '../components/Layout';
 import NewsList from '../components/NewsList';
 
 // eslint-disable-next-line react/prop-types
-export default function App({ data }) {
+const App = ({ intl, data }) => {
+  const { firstName, lastName } = getCurrentUser();
   const isAuth = isLoggedIn();
-
   const dashboardProps = {
     isAuth,
   };
+  const localePrefix = getLocalePrefix(intl.locale);
 
   return (
     <Layout>
@@ -23,17 +25,17 @@ export default function App({ data }) {
           <h1>{data.site.siteMetadata.title}</h1>
           <h1>
             <FormattedMessage id="hello" />
-            {isAuth && `, ${getCurrentUser().name}`}!
+            {isAuth && `, ${firstName} ${lastName}`}!
           </h1>
           <Dashboard {...dashboardProps} />
           <p>
             {isAuth ? (
               <>
-                You are logged in, so check your <Link to="/app/profile">profile</Link>
+                You are logged in, so check your <Link to={`${localePrefix}/app/profile`}>profile</Link>
               </>
             ) : (
               <>
-                You should <Link to="/app/login">log in</Link> to see restricted content
+                You should <Link to={`${localePrefix}/app/login`}>log in</Link> to see restricted content
               </>
             )}
           </p>
@@ -44,7 +46,9 @@ export default function App({ data }) {
       </Grid>
     </Layout>
   );
-}
+};
+
+export default injectIntl(App);
 
 export const query = graphql`
   query {

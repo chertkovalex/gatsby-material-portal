@@ -1,3 +1,5 @@
+import users from '../data/users';
+
 const isBrowser = typeof window !== `undefined`;
 
 const getUser = () => (window.localStorage.gatsbyUser ? JSON.parse(window.localStorage.gatsbyUser) : {});
@@ -9,14 +11,12 @@ const setUser = user => {
 export const handleLogin = ({ username, password }) => {
   if (!isBrowser) return false;
 
-  if (username === `digital` && password === `digital`) {
+  const user = users.find(u => u.login === username && u.password === password);
+
+  if (user) {
     // eslint-disable-next-line no-console
     console.log(`Credentials match! Setting the active user.`);
-    return setUser({
-      name: `Jim`,
-      legalName: `James K. User`,
-      email: `jim@example.org`,
-    });
+    return setUser(user);
   }
 
   return false;

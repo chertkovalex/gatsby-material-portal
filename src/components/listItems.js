@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { navigate } from 'gatsby';
 import { injectIntl } from 'react-intl';
-
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -13,7 +12,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import PeopleIcon from '@material-ui/icons/People';
+import SettingsIcon from '@material-ui/icons/Settings';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
+import { getCurrentUser, isLoggedIn } from '../services/auth';
+import { getLocalePrefix } from '../locale';
 
 export const mainListItems = (
   <div>
@@ -51,15 +54,26 @@ export const mainListItems = (
 );
 
 const secondaryList = ({ intl }) => {
+  const localePrefix = getLocalePrefix(intl.locale);
+  const isAdmin = isLoggedIn() && getCurrentUser().roles.admin;
+
   return (
     <div>
       <ListSubheader inset>Saved reports</ListSubheader>
-      <ListItem button onClick={() => navigate(`${intl.locale === 'en' ? '' : intl.locale}/blog`)}>
+      <ListItem button onClick={() => navigate(`${localePrefix}/blog`)}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Current month" />
+        <ListItemText primary="Blog" />
       </ListItem>
+      {isAdmin && (
+        <ListItem button onClick={() => navigate(`${localePrefix}/app/settings`)}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
+      )}
       <ListItem button>
         <ListItemIcon>
           <AssignmentIcon />

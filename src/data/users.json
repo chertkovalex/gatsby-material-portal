@@ -1,0 +1,26 @@
+[
+  {
+    "email": "jason.green@gmail.com",
+    "firstName": "Jason",
+    "lastName": "Green",
+    "login": "admin",
+    "mainRole": "admin",
+    "password": "admin",
+    "roles": {
+      "admin": true,
+      "agent": true
+    }
+  },
+  {
+    "email": "bob.whistley@gmail.com",
+    "firstName": "Bob",
+    "lastName": "Whistley",
+    "login": "agent",
+    "mainRole": "agent",
+    "password": "agent",
+    "roles": {
+      "admin": false,
+      "agent": true
+    }
+  }
+]
