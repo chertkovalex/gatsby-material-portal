@@ -11,7 +11,7 @@
     "gatsby": "^2.9.0",
     "gatsby-plugin-material-ui": "^2.0.0-beta.2",
     "gatsby-plugin-netlify-cms": "^4.0.1",
-    "gatsby-plugin-react-helmet": "latest",
+    "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sharp": "^2.1.3",
     "gatsby-remark-copy-linked-files": "^2.0.13",
     "gatsby-remark-images": "^3.0.14",
@@ -21,9 +21,9 @@
     "gatsby-transformer-remark": "^2.3.12",
     "gatsby-transformer-sharp": "^2.1.21",
     "netlify-cms-app": "^2.9.1",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-helmet": "latest",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-intl": "^2.9.0"
   },
   "scripts": {
