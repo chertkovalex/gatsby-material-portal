@@ -8,7 +8,6 @@
     "@material-ui/styles": "^4.0.0-rc.0",
     "@reach/router": "^1.2.1",
     "clsx": "^1.0.4",
-    "gatsby": "^2.9.0",
     "gatsby-plugin-material-ui": "^2.0.0-beta.2",
     "gatsby-plugin-netlify-cms": "^4.0.1",
     "gatsby-plugin-react-helmet": "^3.3.10",
@@ -21,8 +20,6 @@
     "gatsby-transformer-remark": "^2.3.12",
     "gatsby-transformer-sharp": "^2.1.21",
     "netlify-cms-app": "^2.9.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-intl": "^2.9.0"
   },
@@ -42,6 +39,14 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0",
-    "prettier": "^1.17.0"
+    "gatsby": "^2.24.2",
+    "prettier": "^1.17.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.24.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
