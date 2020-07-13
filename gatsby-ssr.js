@@ -5,8 +5,13 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 
+import TopLayout from './src/components/TopLayout';
 import { addLocaleDataFor, getLanguageFromPath } from './src/utils';
 import languages from './src/locale';
+
+export const wrapRootElement = ({ element }) => {
+  return <TopLayout>{element}</TopLayout>;
+};
 
 addLocaleDataFor(languages);
 

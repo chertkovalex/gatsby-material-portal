@@ -34,7 +34,7 @@ exports.onCreatePage = async ({ page, actions }) => {
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
-  const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
+  const blogPostTemplate = require.resolve(`./src/templates/blogTemplate.js`);
 
   return graphql(`
     {

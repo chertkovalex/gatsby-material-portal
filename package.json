@@ -1,6 +1,7 @@
 {
-  "name": "gatsby-material-portal",
-  "version": "4.0.0",
+  "name": "portal-theme",
+  "version": "1.0.0",
+  "main": "gatsby-config.js",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.0.0-rc.0",
@@ -24,11 +25,13 @@
     "react-intl": "^2.9.0"
   },
   "scripts": {
-    "develop": "gatsby develop",
     "build": "gatsby build",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop",
     "serve": "gatsby serve"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -45,6 +48,7 @@
     "react-dom": "^16.13.1"
   },
   "peerDependencies": {
+    "eslint-plugin-flowtype": "^5.2.0",
     "gatsby": "^2.24.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
