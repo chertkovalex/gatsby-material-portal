@@ -4,8 +4,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IntlProvider } from 'react-intl';
 
+import TopLayout from './src/components/TopLayout';
 import { addLocaleDataFor, getLanguageFromPath } from './src/utils';
 import languages from './src/locale';
+
+export const wrapRootElement = ({ element }) => {
+  return <TopLayout>{element}</TopLayout>;
+};
+
+wrapRootElement.propTypes = {
+  element: PropTypes.element,
+};
 
 addLocaleDataFor(languages);
 

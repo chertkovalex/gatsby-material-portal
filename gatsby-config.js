@@ -1,6 +1,6 @@
 module.exports = {
   plugins: [
-    'gatsby-plugin-top-layout',
+    // 'gatsby-plugin-top-layout',
     {
       resolve: 'gatsby-plugin-material-ui',
       // If you want to use styled components you should change the injection order.
